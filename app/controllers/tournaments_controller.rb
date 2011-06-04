@@ -83,18 +83,7 @@ class TournamentsController < ApplicationController
 			end
 		end
 
-		@tournament = Tournament.find(cookies[:last_tournament_id])
-		@n1 =  @tournament.organizador.downcase
-		@n2 =  @tournament.organizador.upcase
-		@n3 =  @tournament.organizador.capitalize
-		@n4 =  @tournament.organizador.titleize
 
-		@cluba = Club.find(:first, :conditions => ["(name=? OR name=? OR name=? OR name=? OR name=?)", @tournament.organizador, @n1, @n2, @n3, @n4])
-		if !@cluba
-			@vvv=0
-		else
-			@vvv=1
-		end
 
 
 		@user_tournament = User.find(id=@tournament.id_usuario)
@@ -184,12 +173,33 @@ class TournamentsController < ApplicationController
 			@vs = "Encuentros"
 			@classi = "Clasificacion"
 		end
+		@tournament = Tournament.find(cookies[:last_tournament_id])
+		@title = @tournament.name
+		@playerdd = Player.paginate(:page => params[:page], :per_page => 6, :conditions => ["id_tournament=?", @tournament.id], :order => 'created_at DESC' )
 
 
+		@player2 = Player.new(0)
+		@player2.id_usuario = 0
+		@player2.id_usuario2 = 0
+		@player2.id_tournament = 0
+		@player2.save
+
+		@add = Player.find(:first, :conditions => ["(id_usuario2=? AND id_tournament=?) OR id=?", current_user.id, @tournament.id, @player2.id])
 
 
-
-
+		if (current_user.admin? || @add.id_usuario2==current_user.id || current_user.id==@tournament.id_usuario)
+			@add2="uno"
+			if current_user.id==@tournament.id_usuario
+				@add2="dos"
+			end
+		else
+			if @tournament.visible == "public" || @tournament.visible == "publico"
+				@add2="uno"
+			else
+				@add2="tres"
+			end
+		end
+		@player2.destroy 
 	end
 
 
