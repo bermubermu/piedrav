@@ -17,24 +17,25 @@ class BattlesController < ApplicationController
 		@battle = Battle.find(params[:id])
 		@tournament = Tournament.find(cookies[:last_tournament_id])
 
-		@n1 =  @tournament.name
-		@n2 =  @tournament.name
-		@n3 =  @tournament.name
-		@n4 =  @tournament.name
-		@m1 =  @battle.id_usuario1
-		@m2 =  @battle.id_usuario1
-		@m3 =  @battle.id_usuario1
-		@m4 =  @battle.id_usuario1
-		@o1 =  @battle.id_usuario3
-		@o2 =  @battle.id_usuario3
-		@o3 =  @battle.id_usuario3
-		@o4 =  @battle.id_usuario3
+		@n1 =  @tournament.name.downcase
+		@n2 =  @tournament.name.upcase
+		@n3 =  @tournament.name.capitalize
+		@n4 =  @tournament.name.titleize
+		@m1 =  @battle.id_usuario1.downcase
+		@m2 =  @battle.id_usuario1.upcase
+		@m3 =  @battle.id_usuario1.capitalize
+		@m4 =  @battle.id_usuario1.titleize
+		@o1 =  @battle.id_usuario3.downcase
+		@o2 =  @battle.id_usuario3.upcase
+		@o3 =  @battle.id_usuario3.capitalize
+		@o4 =  @battle.id_usuario3.titleize
 
-		@book = Book.find(:first, :conditions => ["((event=? OR event=? OR event=? OR event=? OR event=?) AND round=? AND (white=? OR white=? OR white=? OR white=? OR white=?) AND (black=? OR black=? OR black=? OR black=? OR black=?))", @tournament.name, @n1, @n2, @n3, @n4, @battle.round, @battle.id_usuario1, @m1, @m2, @m3, @m4, @battle.id_usuario3, @o1, @o2, @o3, @o4,])
-
+		@book = Book.find(:all, :conditions => ["((event=? OR event=? OR event=? OR event=? OR event=?) AND round=? AND (white=? OR white=? OR white=? OR white=? OR white=?) AND (black=? OR black=? OR black=? OR black=? OR black=?))", @tournament.name, @n1, @n2, @n3, @n4, @battle.round, @battle.id_usuario1, @m1, @m2, @m3, @m4, @battle.id_usuario3, @o1, @o2, @o3, @o4,], :limit => 1)
+		if !@book
 			@vvv=0
-
-		
+		else
+			@vvv=1
+		end
 
 
 
