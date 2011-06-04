@@ -30,7 +30,7 @@ class BattlesController < ApplicationController
 		@o3 =  @battle.id_usuario3.capitalize
 		@o4 =  @battle.id_usuario3.titleize
 
-		@book = Book.find(:first, :conditions => ["(event=? OR event=? OR event=? OR event=? OR event=?)", @tournament.name, @n1, @n2, @n3, @n4])
+		@book = Book.find(:first, :conditions => ["((event=? OR event=? OR event=? OR event=? OR event=?) AND round=?)", @tournament.name, @n1, @n2, @n3, @n4, @battle.round])
 		if !@book
 			@vvv=0
 		else
