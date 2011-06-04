@@ -185,7 +185,7 @@ class TournamentsController < ApplicationController
 			@classi = "Clasificacion"
 		end
 		@tournament = Tournament.find(cookies[:last_tournament_id])
-		@title = @tournament.name
+
 
 
 
