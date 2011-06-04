@@ -31,11 +31,11 @@ class BattlesController < ApplicationController
 		@o4 =  @battle.id_usuario3.titleize
 
 		@book = Book.find(:first, :conditions => ["((event=? OR event=? OR event=? OR event=? OR event=?) AND round=? AND (white=? OR white=? OR white=? OR white=? OR white=?) AND (black=? OR black=? OR black=? OR black=? OR black=?))", @tournament.name, @n1, @n2, @n3, @n4, @battle.round, @battle.id_usuario1, @m1, @m2, @m3, @m4, @battle.id_usuario3, @o1, @o2, @o3, @o4,])
-		if !@book
+
 			@vvv=0
-		else
+
 			@vvv=1
-		end
+
 
 
 
