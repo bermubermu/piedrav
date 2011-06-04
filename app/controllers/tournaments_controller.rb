@@ -186,7 +186,7 @@ class TournamentsController < ApplicationController
 		end
 		@tournament = Tournament.find(cookies[:last_tournament_id])
 		@title = @tournament.name
-		@playerdd = Player.paginate(:page => params[:page], :per_page => 6, :conditions => ["id_tournament=?", @tournament.id], :order => 'created_at DESC' )
+
 
 
 		@player2 = Player.new(0)
