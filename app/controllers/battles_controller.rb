@@ -37,8 +37,7 @@ class BattlesController < ApplicationController
 			@vvv=1
 		end
 
-		@tournament = Tournament.find(cookies[:last_tournament_id])
-		@battle = Battle.find(params[:id])
+
 
 if (current_user.admin? || current_user.id == @battle.id_usuario2 || current_user.id == @battle.id_usuario4 || current_user.id==@tournament.id_usuario)
 	@per=0
